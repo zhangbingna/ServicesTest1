@@ -11,4 +11,7 @@ public class WeworkConfig {
         }
         return weworkConfig;
     }
+    public static void  load(String path){
+        //todo:read from yaml or json
+    }
 }
