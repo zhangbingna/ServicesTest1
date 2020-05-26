@@ -5,8 +5,8 @@ public class GetTest {
     @Test
     void testToken(){
         RestAssured.given().log().all()
-                .queryParam("corpid","ww416484273c17f7d7")
-                .queryParam("corpsecret","Z_-szDWP5SehZZPPQk1zF02MJIMSDwnxW8MJni8QysM")
+                .queryParam("corpid",WeworkConfig.getInstance().corpid)
+                .queryParam("corpsecret",WeworkConfig.getInstance().secret)
             .when().get("https://qyapi.weixin.qq.com/cgi-bin/gettoken")
             .then().log().all().statusCode(200).body("errcode",equalTo(0));
     }
