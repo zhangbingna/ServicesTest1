@@ -1,3 +1,5 @@
+package com.testerhome.hogwarts.wework;
+
 public class WeworkConfig {
     public String agentId="3010040";
     public String secret="Z_-szDWP5SehZZPPQk1zFxS7Q6R0S3_dTlN0aV7MYFE";
