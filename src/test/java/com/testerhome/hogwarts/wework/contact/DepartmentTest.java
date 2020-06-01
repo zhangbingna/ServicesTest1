@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.equalTo;
 class DepartmentTest {
 
     Department department;
+    String random=String.valueOf(System.currentTimeMillis());
     @BeforeEach
     void setUP(){
         if (department==null){
@@ -35,11 +36,17 @@ class DepartmentTest {
 
     @Test
     void delet() {
-        department.delet("6");
+        String name="bnazhang02";
+        String id=String.valueOf(department.list("").path("department.find{it.name=='"+name+"'}.id"));
+        department.creat(name,"1");
+        department.delet(id);
     }
 
     @Test
     void update() {
-        department.update("8","bnazhang001");
+        String name="bnazhang02"+random;
+        department.creat(name,"1");
+        String id=String.valueOf(department.list("").path("department.find{it.name=='"+name+"'}.id"));
+        department.update(id,"bnazhang3"+random);
     }
 }
