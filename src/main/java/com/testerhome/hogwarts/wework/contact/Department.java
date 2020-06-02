@@ -4,25 +4,28 @@ import com.jayway.jsonpath.JsonPath;
 import com.testerhome.hogwarts.wework.Wework;
 import com.testerhome.hogwarts.wework.WeworkConfig;
 
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.responseSpecification;
 
 
-public class Department {
+public class Department extends Contact{
     public Response list(String id){
-        return given().log().all()
-                .param("access_token", Wework.getToken())
+        Response response=requestSpecification
                 .param("id",id)
         .when().get("https://qyapi.weixin.qq.com/cgi-bin/department/list")
-        .then().log().all().statusCode(200).extract().response();
+        .then().extract().response();
+        reset();
+        return response;
     }
     public Response creat(String name,String parentid){
        String body=JsonPath.parse(this.getClass().getResourceAsStream("/data/creat.json"))
                .set("$.name",name)
                .set("$.parentid",parentid)
                .jsonString();
-       return given().log().all()
+       return given().log().all().contentType(ContentType.JSON)
                .queryParam("access_token",Wework.getToken())
                 .body(body)
                 .when().post("https://qyapi.weixin.qq.com/cgi-bin/department/create")
