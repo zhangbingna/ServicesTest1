@@ -1,11 +1,14 @@
 package com.testerhome.hogwarts.wework.contact;
 
+import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.testerhome.hogwarts.wework.Wework;
 import com.testerhome.hogwarts.wework.WeworkConfig;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+
+import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.responseSpecification;
@@ -31,6 +34,18 @@ public class Department extends Contact{
                 .when().post("https://qyapi.weixin.qq.com/cgi-bin/department/create")
                 .then().log().all().extract().response();
 
+    }
+    public Response create(HashMap<String,Object> map){
+        reset();
+        DocumentContext documentContext=JsonPath.parse(this.getClass()
+                .getResourceAsStream("/data/creat.json"));
+        map.entrySet().forEach(entry->{
+            documentContext.set(entry.getKey(),entry.getValue());
+        });
+        return requestSpecification
+                .body(documentContext.jsonString())
+                .when().post("https://qyapi.weixin.qq.com/cgi-bin/department/create")
+                .then().log().all().extract().response();
     }
     public Response delet(String id){
         reset();

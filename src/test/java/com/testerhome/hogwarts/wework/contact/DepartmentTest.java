@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+
 import static org.hamcrest.Matchers.equalTo;
 
 
@@ -35,11 +37,12 @@ class DepartmentTest {
         department.creat("张冰娜001","2");
     }
 
+
     @Test
     void delet() {
         String name="bnazhang02"+random;
-        department.creat(name,"2");
-        Integer idInt=department.list("").path("department.find{it.name=='"+name+"'}.id");
+        Integer idInt=department.creat(name,"2").path("id");
+        //Integer idInt=department.list("").path("department.find{it.name=='"+name+"'}.id");
         System.out.println(idInt);
         String id=String.valueOf(idInt);
         department.delet(id);
@@ -48,10 +51,23 @@ class DepartmentTest {
     @Test
     void update() {
         String name="bnazhang02"+random;
-        department.creat(name,"2");
-        Integer idInt=department.list("").path("department.find{it.name=='"+name+"'}.id");
+        Integer idInt=department.creat(name,"2").path("id");
+        //Integer idInt=department.list("").path("department.find{it.name=='"+name+"'}.id");
         String id=String.valueOf(idInt);
         department.update(id,"bnazhang3"+random);
+        department.delet(id);
+    }
+
+    @Test
+    void createByMap() {
+        HashMap<String,Object> map=new HashMap<String, Object>(){
+            {
+                put("name","zhangbingna0001+map"+random);
+                put("parentid","2");
+            }
+        };
+        Integer idInt=department.create(map).path("id");
+        String id=String.valueOf(idInt);
         department.delet(id);
     }
 }

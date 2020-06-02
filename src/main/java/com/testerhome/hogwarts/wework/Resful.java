@@ -16,7 +16,7 @@ public class Resful {
         query.entrySet().forEach( entry-> {
             requestSpecification.queryParam(entry.getKey(),entry.getValue());
         } );
-        return requestSpecification.when().request("get","www.baidu.com");
+        return requestSpecification.when().request("get","https://qyapi.weixin.qq.com/cgi-bin");
     }
 
 }
