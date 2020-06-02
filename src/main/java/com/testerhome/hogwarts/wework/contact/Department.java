@@ -21,31 +21,33 @@ public class Department extends Contact{
         return response;
     }
     public Response creat(String name,String parentid){
+        reset();
        String body=JsonPath.parse(this.getClass().getResourceAsStream("/data/creat.json"))
                .set("$.name",name)
                .set("$.parentid",parentid)
                .jsonString();
-       return given().log().all().contentType(ContentType.JSON)
-               .queryParam("access_token",Wework.getToken())
+       return requestSpecification
                 .body(body)
                 .when().post("https://qyapi.weixin.qq.com/cgi-bin/department/create")
-                .then().log().all().statusCode(200).extract().response();
+                .then().extract().response();
+
     }
     public Response delet(String id){
-        return given()
-                .param("access_token",Wework.getToken())
+        reset();
+        return requestSpecification
                 .param("id",id)
                 .when().get("https://qyapi.weixin.qq.com/cgi-bin/department/delete")
-                .then().log().all().statusCode(200).extract().response();
+                .then().extract().response();
     }
     public Response update(String id,String name){
+        reset();
         String body=JsonPath.parse(this.getClass().getResourceAsStream("/data/creat.json"))
                 .set("$.id",id)
                 .set("$.name",name)
                 .jsonString();
-        return given().log().all().queryParam("access_token",Wework.getToken())
+        return requestSpecification
                 .body(body)
                 .when().post("https://qyapi.weixin.qq.com/cgi-bin/department/update")
-                .then().log().all().statusCode(200).extract().response();
+                .then().extract().response();
     }
 }

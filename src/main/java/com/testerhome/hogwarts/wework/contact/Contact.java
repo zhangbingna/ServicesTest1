@@ -2,6 +2,7 @@ package com.testerhome.hogwarts.wework.contact;
 
 import com.testerhome.hogwarts.wework.Resful;
 import com.testerhome.hogwarts.wework.Wework;
+import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
 
@@ -10,8 +11,8 @@ public class Contact extends Resful {
         reset();
     }
     public void reset(){
-        requestSpecification.log().all()
-                .param("access_token", Wework.getToken())
-                .expect().log().all().statusCode(200);
+        requestSpecification=given().log().all()
+                .queryParam("access_token", Wework.getToken())
+                .contentType(ContentType.JSON);
     }
 }

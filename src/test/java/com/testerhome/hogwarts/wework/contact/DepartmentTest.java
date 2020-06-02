@@ -38,8 +38,10 @@ class DepartmentTest {
     @Test
     void delet() {
         String name="bnazhang02"+random;
-        String id=String.valueOf(department.list("").path("department.find{it.name=='"+name+"'}.id"));
         department.creat(name,"2");
+        Integer idInt=department.list("").path("department.find{it.name=='"+name+"'}.id");
+        System.out.println(idInt);
+        String id=String.valueOf(idInt);
         department.delet(id);
     }
 
@@ -47,7 +49,8 @@ class DepartmentTest {
     void update() {
         String name="bnazhang02"+random;
         department.creat(name,"2");
-        String id=String.valueOf(department.list("").path("department.find{it.name=='"+name+"'}.id"));
+        Integer idInt=department.list("").path("department.find{it.name=='"+name+"'}.id");
+        String id=String.valueOf(idInt);
         department.update(id,"bnazhang3"+random);
         department.delet(id);
     }
