@@ -1,5 +1,7 @@
 package com.testerhome.hogwarts.wework;
 
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -18,5 +20,12 @@ public class Resful {
         } );
         return requestSpecification.when().request("get","https://qyapi.weixin.qq.com/cgi-bin");
     }
-
+    public static String template(String path,HashMap<String,Object> map){
+        DocumentContext documentContext= JsonPath.parse(Resful.class
+                .getResourceAsStream(path));
+        map.entrySet().forEach(entry->{
+            documentContext.set(entry.getKey(),entry.getValue());
+        });
+        return documentContext.jsonString();
+    }
 }

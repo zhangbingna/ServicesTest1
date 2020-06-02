@@ -1,0 +1,19 @@
+{
+  "userid": null,
+  "name": null,
+  "alias": null,
+  "mobile": 18312759937,
+  "department": 1,
+  "order": null,
+  "position": null,
+  "gender": null,
+  "email": "18312759937@163.com",
+  "is_leader_in_dept": null,
+  "enable":null,
+  "avatar_mediaid": null,
+  "telephone": null,
+  "address": null,
+  "main_department": null,
+  "to_invite": null,
+  "external_position": null
+}
