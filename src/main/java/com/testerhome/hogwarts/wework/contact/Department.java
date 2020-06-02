@@ -13,11 +13,11 @@ import static io.restassured.RestAssured.responseSpecification;
 
 public class Department extends Contact{
     public Response list(String id){
+        reset();
         Response response=requestSpecification
                 .param("id",id)
         .when().get("https://qyapi.weixin.qq.com/cgi-bin/department/list")
-        .then().extract().response();
-        reset();
+        .then().log().all().extract().response();
         return response;
     }
     public Response creat(String name,String parentid){
@@ -29,7 +29,7 @@ public class Department extends Contact{
        return requestSpecification
                 .body(body)
                 .when().post("https://qyapi.weixin.qq.com/cgi-bin/department/create")
-                .then().extract().response();
+                .then().log().all().extract().response();
 
     }
     public Response delet(String id){
@@ -37,7 +37,7 @@ public class Department extends Contact{
         return requestSpecification
                 .param("id",id)
                 .when().get("https://qyapi.weixin.qq.com/cgi-bin/department/delete")
-                .then().extract().response();
+                .then().log().all().extract().response();
     }
     public Response update(String id,String name){
         reset();
@@ -48,6 +48,6 @@ public class Department extends Contact{
         return requestSpecification
                 .body(body)
                 .when().post("https://qyapi.weixin.qq.com/cgi-bin/department/update")
-                .then().extract().response();
+                .then().log().all().extract().response();
     }
 }
