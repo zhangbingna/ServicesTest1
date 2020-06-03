@@ -45,6 +45,7 @@ public class Department extends Contact{
                 .when().post("https://qyapi.weixin.qq.com/cgi-bin/department/create")
                 .then().log().all().extract().response();
     }
+
     public Response delete(String id){
         reset();
         return requestSpecification
@@ -69,5 +70,18 @@ public class Department extends Contact{
                 then().extract().path("department.id");
         System.out.println(idlist);
         idlist.forEach(id->delete(id.toString()));
+    }
+
+    public void createFromHar(HashMap<String,Object> map){
+        reset();
+
+        templateFromHar(
+                "/data/demo.har.json",
+                "https://work.weixin.qq.com/wework_admin/party?action=addparty",
+                map
+        );
+    }
+    public void apiForAll(HashMap<String,Object> map){
+        api("/data/demo.har.json","addparty",map);
     }
 }
