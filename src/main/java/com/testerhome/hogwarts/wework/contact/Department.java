@@ -2,16 +2,14 @@ package com.testerhome.hogwarts.wework.contact;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
-import com.testerhome.hogwarts.wework.Wework;
-import com.testerhome.hogwarts.wework.WeworkConfig;
 
-import io.restassured.http.ContentType;
+
 import io.restassured.response.Response;
 
 import java.util.HashMap;
+import java.util.List;
 
-import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.responseSpecification;
+
 
 
 public class Department extends Contact{
@@ -23,7 +21,7 @@ public class Department extends Contact{
         .then().log().all().extract().response();
         return response;
     }
-    public Response creat(String name,String parentid){
+    public Response create(String name,String parentid){
         reset();
        String body=JsonPath.parse(this.getClass().getResourceAsStream("/data/creat.json"))
                .set("$.name",name)
@@ -47,7 +45,7 @@ public class Department extends Contact{
                 .when().post("https://qyapi.weixin.qq.com/cgi-bin/department/create")
                 .then().log().all().extract().response();
     }
-    public Response delet(String id){
+    public Response delete(String id){
         reset();
         return requestSpecification
                 .param("id",id)
@@ -64,5 +62,12 @@ public class Department extends Contact{
                 .body(body)
                 .when().post("https://qyapi.weixin.qq.com/cgi-bin/department/update")
                 .then().log().all().extract().response();
+    }
+    public void deleteAll(){
+        reset();
+        List<Integer> idlist=list("").
+                then().extract().path("department.id");
+        System.out.println(idlist);
+        idlist.forEach(id->delete(id.toString()));
     }
 }

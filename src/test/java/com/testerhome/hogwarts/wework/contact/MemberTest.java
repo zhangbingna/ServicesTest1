@@ -1,7 +1,7 @@
 package com.testerhome.hogwarts.wework.contact;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 class MemberTest {
 
@@ -26,6 +26,7 @@ class MemberTest {
         member.get("Anker");
     }
 
+    //junit参数化
     @ParameterizedTest
     @ValueSource(strings ={"zhangbingna","bnazhang","LingTian"})
     void createByMap(String name){

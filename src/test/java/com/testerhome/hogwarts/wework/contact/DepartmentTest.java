@@ -1,6 +1,5 @@
 package com.testerhome.hogwarts.wework.contact;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +17,7 @@ class DepartmentTest {
         if (department==null){
             department=new Department();
         }
+        department.deleteAll();
     }
 
     @Test
@@ -29,33 +29,28 @@ class DepartmentTest {
     }
 
     @Test
-    void creat() {
-        //department.creat();
-        //department.creat("bnazhang03","2");
-        //department.creat("bnazhang03","2");
-                //.then().body("errcode",equalTo(60010));
-        department.creat("张冰娜001","2");
+    void create() {
+        department.create("张冰娜001","1").then().body("errcode",equalTo(0));
     }
 
 
     @Test
-    void delet() {
+    void delete() {
         String name="bnazhang02"+random;
-        Integer idInt=department.creat(name,"2").path("id");
+        Integer idInt=department.create(name,"1").path("id");
         //Integer idInt=department.list("").path("department.find{it.name=='"+name+"'}.id");
         System.out.println(idInt);
         String id=String.valueOf(idInt);
-        department.delet(id);
+        department.delete(id).then().body("errcode",equalTo(0));
     }
 
     @Test
     void update() {
         String name="bnazhang02"+random;
-        Integer idInt=department.creat(name,"2").path("id");
+        Integer idInt=department.create(name,"1").path("id");
         //Integer idInt=department.list("").path("department.find{it.name=='"+name+"'}.id");
         String id=String.valueOf(idInt);
-        department.update(id,"bnazhang3"+random);
-        department.delet(id);
+        department.update(id,"bnazhang3"+random).then().body("errcode",equalTo(0));
     }
 
     @Test
@@ -63,11 +58,9 @@ class DepartmentTest {
         HashMap<String,Object> map=new HashMap<String, Object>(){
             {
                 put("name","zhangbingna0001+map"+random);
-                put("parentid","2");
+                put("parentid","1");
             }
         };
-        Integer idInt=department.create(map).path("id");
-        String id=String.valueOf(idInt);
-        department.delet(id);
+        department.create(map).then().body("errcode",equalTo(0));
     }
 }
